@@ -12,13 +12,13 @@ public class Servico implements IServicoService{
 	private String nome;
 	private LocalDate dataDeInicio;
 	private LocalDate dataDeFim;
-	private int valor;
+	private double valor;
 	private String metodoDePagamento;
 	private Cliente cliente;
 	private List<Servico> servicos = new ArrayList<>();
 	
 	
-	public Servico(int id, String nome, LocalDate dataDeInicio, LocalDate dataDeFim, int valor, String metodoDePagamento,
+	public Servico(int id, String nome, LocalDate dataDeInicio, LocalDate dataDeFim, double valor, String metodoDePagamento,
 			Cliente cliente) {
 		this.id = id;
 		this.nome = nome;
@@ -61,11 +61,11 @@ public class Servico implements IServicoService{
 		this.dataDeFim = dataDeFim;
 	}
 
-	public int getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
