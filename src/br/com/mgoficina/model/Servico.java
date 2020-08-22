@@ -1,8 +1,12 @@
 package br.com.mgoficina.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Servico {
+import br.com.mgoficina.service.IServicoService;
+
+public class Servico implements IServicoService{
 	
 	private int id;
 	private String nome;
@@ -11,6 +15,8 @@ public class Servico {
 	private int valor;
 	private String metodoDePagamento;
 	private Cliente cliente;
+	private List<Servico> servicos = new ArrayList<>();
+	
 	
 	public Servico(int id, String nome, LocalDate dataDeInicio, LocalDate dataDeFim, int valor, String metodoDePagamento,
 			Cliente cliente) {
@@ -77,6 +83,55 @@ public class Servico {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	@Override
+	public Servico create(Servico servico) {
+		Servico service = servico;
+		servicos.add(service);
+		return service;
+	}
+
+	@Override
+	public Servico findServicoById(int indice) {
+		for (Servico servico : servicos) {
+			if(servico.getId() == indice) {
+				return servico;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Servico findServicoByNome(String nome) {
+		for (Servico servico : servicos) {
+			if(servico.getNome() == nome) {
+				return servico;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Servico> findAll() {
+		return servicos;
+	}
+
+	@Override
+	public boolean updateServico(Servico servico) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteServico(int indice) {
+		for (Servico servico : servicos) {
+			if(servico.getId() == indice) {
+				servicos.remove(servicos.indexOf(servico));
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
