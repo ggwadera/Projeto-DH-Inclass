@@ -74,8 +74,6 @@ public class Veiculo {
 
 	public void setTipoDeVeiculo(String tipoDeVeiculo) {
 		this.tipoDeVeiculo = tipoDeVeiculo;
-	}
-	
-	
+	}	
 
 }
