@@ -1,20 +1,33 @@
 package br.com.mgoficina.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Funcionario {
 	
+	private int id;
 	private String nome;
 	private String cpf;
 	private int idade;
 	private char sexo;
 	private String cargo;
+	private List<Servico> servicos = new ArrayList<>();
 	
-	public Funcionario(String nome, String cpf, int idade, char sexo, String cargo) {
-		super();
+	public Funcionario(int id, String nome, String cpf, int idade, char sexo, String cargo) {
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
 		this.sexo = sexo;
 		this.cargo = cargo;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -55,6 +68,14 @@ public class Funcionario {
 
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
 	
 	
