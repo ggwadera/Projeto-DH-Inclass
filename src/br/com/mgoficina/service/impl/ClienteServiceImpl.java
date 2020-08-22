@@ -70,7 +70,14 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	public boolean deleteCliente(int indice) {
-		return false;
+		boolean r = false;
+		int indiceDoObjeto = this.clientes.indexOf(this.findClienteById(indice));
+		
+		if(indiceDoObjeto > -1) {
+			this.clientes.remove(this.findClienteById(indice));
+			r = true;
+		}
+		return r;
 	}
 	
 	
