@@ -1,30 +1,20 @@
 package br.com.mgoficina.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente extends Pessoa {
 	
-	private int id;
-	private String nome;
-	private String cpf;
-	private int idade;
-	private char sexo;
 	private List<Veiculo> veiculos;
-	
-	public Cliente(int id, String nome, String cpf, int idade, char sexo) {
-		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.idade = idade;
-		this.sexo = sexo;
+
+	public Cliente(Long id, String nome, String cpf, int idade, char sexo, List<Veiculo> veiculos) {
+		super(id, nome, cpf, idade, sexo);
+		this.veiculos = new ArrayList<>(veiculos);
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public Cliente(Long id, String nome, String cpf, int idade, char sexo) {
+		super(id, nome, cpf, idade, sexo);
+		this.veiculos = new ArrayList<>();
 	}
 
 	public List<Veiculo> getVeiculos() {
@@ -32,41 +22,7 @@ public class Cliente {
 	}
 
 	public void setVeiculos(List<Veiculo> veiculos) {
-		this.veiculos = veiculos;
+		this.veiculos = new ArrayList<>(veiculos);
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public int getIdade() {
-		return idade;
-	}
-
-	public void setIdade(int idade) {
-		this.idade = idade;
-	}
-
-	public char getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
-	}
-	
-	
 	
 }
