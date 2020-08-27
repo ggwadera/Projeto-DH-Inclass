@@ -1,27 +1,28 @@
 package br.com.mgoficina.model;
 
-public abstract class Pessoa {
+import br.com.mgoficina.model.enums.Sexo;
+
+public abstract class Pessoa implements Identifiable {
 	
+	private static Long ID_GENERATOR = 0L;
+
 	private Long id;
 	private String nome;
 	private String cpf;
 	private Integer idade;
-	private Character sexo;
+	private Sexo sexo;
 	
-	protected Pessoa(Long id, String nome, String cpf, int idade, char sexo) {
-		this.id = id;
+	protected Pessoa(String nome, String cpf, int idade, Sexo sexo) {
+		this.id = ID_GENERATOR++;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
 		this.sexo = sexo;
 	}
 
+	@Override
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -48,11 +49,11 @@ public abstract class Pessoa {
 		this.idade = idade;
 	}
 
-	public Character getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(Character sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 	

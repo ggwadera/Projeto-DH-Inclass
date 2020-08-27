@@ -1,5 +1,7 @@
 package br.com.mgoficina.model;
 
+import br.com.mgoficina.model.enums.Sexo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +9,13 @@ public class Cliente extends Pessoa {
 	
 	private List<Veiculo> veiculos;
 
-	public Cliente(Long id, String nome, String cpf, int idade, char sexo, List<Veiculo> veiculos) {
-		super(id, nome, cpf, idade, sexo);
+	public Cliente(String nome, String cpf, int idade, Sexo sexo, List<Veiculo> veiculos) {
+		super(nome, cpf, idade, sexo);
 		this.veiculos = new ArrayList<>(veiculos);
 	}
 
-	public Cliente(Long id, String nome, String cpf, int idade, char sexo) {
-		super(id, nome, cpf, idade, sexo);
+	public Cliente(String nome, String cpf, int idade, Sexo sexo) {
+		super(nome, cpf, idade, sexo);
 		this.veiculos = new ArrayList<>();
 	}
 

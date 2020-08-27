@@ -4,23 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.mgoficina.service.IServicoService;
+import br.com.mgoficina.model.enums.MetodoDePagamento;
 
-public class Servico implements IServicoService{
+public class Servico implements Identifiable {
+
+	private static Long ID_GENERATOR = 0L;
 	
-	private int id;
+	private Long id;
 	private String nome;
 	private LocalDate dataDeInicio;
 	private LocalDate dataDeFim;
 	private double valor;
-	private String metodoDePagamento;
+	private MetodoDePagamento metodoDePagamento;
 	private Cliente cliente;
 	private List<Servico> servicos = new ArrayList<>();
 	
 	
-	public Servico(int id, String nome, LocalDate dataDeInicio, LocalDate dataDeFim, double valor, String metodoDePagamento,
-			Cliente cliente) {
-		this.id = id;
+	public Servico(String nome, LocalDate dataDeInicio, LocalDate dataDeFim, double valor, MetodoDePagamento metodoDePagamento,
+				   Cliente cliente) {
+		this.id = ID_GENERATOR++;
 		this.nome = nome;
 		this.dataDeInicio = dataDeInicio;
 		this.dataDeFim = dataDeFim;
@@ -29,12 +31,9 @@ public class Servico implements IServicoService{
 		this.cliente = cliente;
 	}
 
-	public int getId() {
+	@Override
+	public Long getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -69,11 +68,11 @@ public class Servico implements IServicoService{
 		this.valor = valor;
 	}
 
-	public String getMetodoDePagamento() {
+	public MetodoDePagamento getMetodoDePagamento() {
 		return metodoDePagamento;
 	}
 
-	public void setMetodoDePagamento(String metodoDePagamento) {
+	public void setMetodoDePagamento(MetodoDePagamento metodoDePagamento) {
 		this.metodoDePagamento = metodoDePagamento;
 	}
 
@@ -84,56 +83,5 @@ public class Servico implements IServicoService{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	@Override
-	public Servico create(Servico servico) {
-		Servico service = servico;
-		servicos.add(service);
-		return service;
-	}
-
-	@Override
-	public Servico findServicoById(int indice) {
-		for (Servico servico : servicos) {
-			if(servico.getId() == indice) {
-				return servico;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public Servico findServicoByNome(String nome) {
-		for (Servico servico : servicos) {
-			if(servico.getNome() == nome) {
-				return servico;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public List<Servico> findAll() {
-		return servicos;
-	}
-
-	@Override
-	public boolean updateServico(Servico servico) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteServico(int indice) {
-		for (Servico servico : servicos) {
-			if(servico.getId() == indice) {
-				servicos.remove(servicos.indexOf(servico));
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
 
 }
