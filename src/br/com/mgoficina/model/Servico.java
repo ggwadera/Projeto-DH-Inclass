@@ -17,7 +17,6 @@ public class Servico implements Identifiable {
 	private double valor;
 	private MetodoDePagamento metodoDePagamento;
 	private Cliente cliente;
-	private List<Servico> servicos = new ArrayList<>();
 	
 	
 	public Servico(String nome, LocalDate dataDeInicio, LocalDate dataDeFim, double valor, MetodoDePagamento metodoDePagamento,
