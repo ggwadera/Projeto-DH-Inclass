@@ -1,84 +1,39 @@
 package br.com.mgoficina.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import br.com.mgoficina.exception.DataIntegrityException;
+import br.com.mgoficina.exception.ObjectNotFoundException;
 import br.com.mgoficina.model.Cliente;
 import br.com.mgoficina.service.IClienteService;
 
-public class ClienteServiceImpl implements IClienteService{
+public class ClienteServiceImpl extends ServiceImpl<Cliente> implements IClienteService {
 
-	private List<Cliente> clientes;
-	
-	
-	
-	public ClienteServiceImpl() {
-		clientes = new ArrayList<Cliente>();
-	}
-	public ClienteServiceImpl(List<Cliente> clientes) {
-		this.clientes = new ArrayList<>(clientes);
-	} 
-	
-		
-	
-	@Override
-	public Cliente create(Cliente cliente) {
-		this.clientes.add(cliente);
-		return cliente;
-	}
+    private final static ClienteServiceImpl SINGLE_INSTANCE = new ClienteServiceImpl();
 
-	@Override
-	public Cliente findClienteById(int indice) {
-		return null;
-	}
+    private ClienteServiceImpl() {
+        super();
+    }
 
-	@Override
-	public Cliente findClienteByNome(String nome) {
-		
-		for(Cliente cliente: this.clientes) {
-			if(cliente.getNome().equals(nome)) {
-				return cliente;
-			}
-		}
-		
-		return null;
-	}
+    public static ClienteServiceImpl getInstance() {
+        return SINGLE_INSTANCE;
+    }
 
-	@Override
-	public List<Cliente> findAll() {
-		return Collections.unmodifiableList(this.clientes);
-	}
+    @Override
+    public Cliente create(Cliente cliente) throws DataIntegrityException {
+        if (cliente.getNome() == null || cliente.getNome().isEmpty()) {
+            throw new DataIntegrityException("Nome não pode ser nulo ou vazio.");
+        }
+        if (cliente.getCpf() == null || cliente.getCpf().isEmpty()) {
+            throw new DataIntegrityException("CPF não pode ser nulo ou vazio.");
+        }
+        this.list.add(cliente);
+        return cliente;
+    }
 
-	@Override
-	public boolean updateCliente(Cliente cliente) {
-		
-		if(this.clientes.contains(cliente)) {
-			
-			int indiceDoObjeto = this.clientes.indexOf(cliente);
-			this.clientes.remove(cliente);
-			this.clientes.add(indiceDoObjeto, cliente);
-			return true;
-			
-		}else {		
-			
-			return false;
-			
-		}
-		
-	}
-
-	@Override
-	public boolean deleteCliente(int indice) {
-		int indiceDoObjeto = this.clientes.indexOf(this.findClienteById(indice));
-		
-		if(indiceDoObjeto > -1) {
-			this.clientes.remove(this.findClienteById(indice));
-			return true;
-		}
-		return false;
-	}
-	
-	
-	
+    @Override
+    public Cliente findByNome(String nome) throws ObjectNotFoundException {
+        return this.list.stream()
+                .filter(t -> t.getNome().equals(nome))
+                .findAny()
+                .orElseThrow(() -> new ObjectNotFoundException("nome: " + nome));
+    }
 }

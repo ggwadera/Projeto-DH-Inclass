@@ -1,71 +1,62 @@
-
 package br.com.mgoficina.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import br.com.mgoficina.exception.DataIntegrityException;
+import br.com.mgoficina.model.Cliente;
+import br.com.mgoficina.model.Servico;
 import br.com.mgoficina.model.Veiculo;
 import br.com.mgoficina.service.IVeiculoService;
 
-public class VeiculoServiceImpl implements IVeiculoService{
-	
-	private List<Veiculo> veiculos;
-	
-	public VeiculoServiceImpl () {
-		
-		veiculos = new ArrayList<Veiculo>();
-	}
-	public VeiculoServiceImpl(List<Veiculo> veiculos) {
-		this.veiculos = new ArrayList<>(veiculos);
-	}
-	@Override
-	public Veiculo create(Veiculo veiculo) {
-		this.veiculos.add(veiculo);
-		return veiculo;
-	}
-	@Override
-	public Veiculo findVeiculoById(int indice) {
-		for(Veiculo veiculo: this.veiculos) {
-			if(veiculo.getPlaca().equals(indice)) {
-				return veiculo;
-			}
-		}
-		return null;
-	}
-	@Override
-	public Veiculo findVeiculoByPlaca(String placa) {
-		
-		for(Veiculo veiculo: this.veiculos) {
-			if(veiculo.getPlaca().equals(placa)) {
-				return veiculo;
-			}
-		}
-		return null;
-	}
-	@Override
-	public List<Veiculo> findAll() {
-		return Collections.unmodifiableList(this.veiculos);
-	}
-	@Override
-	public boolean updateVeiculo(Veiculo veiculo) {
-		if(this.veiculos.contains(veiculo)) {
-			
-			int indiceDoObjeto = this.veiculos.indexOf(veiculo);
-			this.veiculos.remove(veiculo);
-			this.veiculos.add(indiceDoObjeto, veiculo);
-			return true;
-			
-		}else {		
-			
-			return false;
-			
-		}
-	}
-	@Override
-	public boolean deleteVeiculo(int indice) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+import java.lang.reflect.Field;
+import java.util.List;
+
+public class VeiculoServiceImpl extends ServiceImpl<Veiculo> implements IVeiculoService {
+
+    private final static VeiculoServiceImpl SINGLE_INSTANCE = new VeiculoServiceImpl();
+
+    private VeiculoServiceImpl() {
+        super();
+    }
+
+    public static VeiculoServiceImpl getInstance() {
+        return SINGLE_INSTANCE;
+    }
+
+    @Override
+    public boolean fieldsAreValid(Veiculo veiculo) {
+        Field[] fields = veiculo.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(veiculo);
+                if (value == null) {
+                    return false;
+                }
+                if (value instanceof String && ((String) value).isEmpty()) {
+                    return false;
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public List<Veiculo> findByCliente(Cliente cliente) {
+        return null;
+    }
+
+    @Override
+    public List<Veiculo> findByServico(Servico servico) {
+        return null;
+    }
+
+    @Override
+    public Veiculo create(Veiculo veiculo) throws DataIntegrityException {
+        if (!this.fieldsAreValid(veiculo)) {
+            throw new DataIntegrityException("Veículo não pode ter campos nulos ou vazios.");
+        }
+        this.list.add(veiculo);
+        return veiculo;
+    }
 }

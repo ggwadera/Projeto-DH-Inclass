@@ -12,7 +12,9 @@ public interface IServicoService extends IService<Servico> {
 
 	List<Servico> findByCliente(Cliente cliente) throws ObjectNotFoundException;
 
-	List<Servico> findByData(LocalDate data) throws ObjectNotFoundException;
+	List<Servico> findByData(LocalDate dataDeInicio) throws ObjectNotFoundException;
+
+	List<Servico> findByData(LocalDate inicio, LocalDate fim) throws ObjectNotFoundException;
 
 	List<Servico> findByVeiculo(Veiculo veiculo) throws ObjectNotFoundException;
 }
