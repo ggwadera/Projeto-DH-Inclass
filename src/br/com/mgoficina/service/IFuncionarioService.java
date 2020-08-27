@@ -5,13 +5,8 @@ import java.util.List;
 import br.com.mgoficina.exception.ObjectNotFoundException;
 import br.com.mgoficina.model.Funcionario;
 
-public interface IFuncionarioService {
+public interface IFuncionarioService extends IService<Funcionario> {
 	
-	public Funcionario create(Funcionario funcionario);
-	public Funcionario findFuncionarioById(int indice) throws ObjectNotFoundException;
-	public Funcionario findFuncionarioByNome(String nome) throws ObjectNotFoundException;
-	public List<Funcionario> findAll();
-	public boolean updateFuncionario(Funcionario funcionario);
-	public boolean deleteFuncionario(int indice);
+	Funcionario findByNome(String nome) throws ObjectNotFoundException;
 
 }
